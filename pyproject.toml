@@ -1,0 +1,55 @@
+[project]
+name = "studymaster-ai-backend"
+version = "2.0.0"
+description = "StudyMaster 2.0 — agentic AI study platform backend (FastAPI + LangGraph)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Web framework
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "python-multipart>=0.0.12",
+    # Config / validation
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.6.0",
+    "email-validator>=2.2.0",
+    # Database (async MongoDB, maps to the existing Mongoose collections)
+    "motor>=3.6.0",
+    "beanie>=1.27.0",
+    "dnspython>=2.7.0",
+    # Auth (Node-jsonwebtoken-compatible JWT + bcrypt password hashes)
+    "pyjwt>=2.9.0",
+    "bcrypt>=4.2.0",
+    "google-auth>=2.35.0",
+    # Gemini Live (Live Teach WebSocket bridge) — real-time voice teaching.
+    "google-genai>=2.22.0",
+    # LLM — provider-agnostic router
+    "litellm>=1.52.0",
+    # OpenAI speech synthesis for note read-aloud
+    "openai>=2.54.0",
+    # Agents
+    "langgraph>=0.2.45",
+    "langchain-core>=0.3.0",
+    # HTTP (Tavily search, Spitch TTS/STT, Gemini REST, etc.)
+    "httpx>=0.27.0",
+    # Email
+    "resend>=2.4.0",
+    # Media (community images, note image cache)
+    "cloudinary>=1.41.0",
+    # Nigerian speech-to-text for dictation
+    "spitch>=0.1.0",
+    # SSE streaming (agentic note progress)
+    "sse-starlette>=2.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.7.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.uv]
+package = false

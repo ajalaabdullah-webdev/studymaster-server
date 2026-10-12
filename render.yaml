@@ -1,0 +1,68 @@
+# Render blueprint for the StudyMaster 2.0 Python backend.
+#
+# NOTE ON THE FREE PLAN: free web services sleep after ~15 minutes idle and take
+# ~1 minute to wake. That is acceptable for testing, but a sleeping instance
+# drops WebSocket connections, so Live Teach will fail for the first student
+# after a quiet period. Upgrade the plan (or move host) before real launch.
+services:
+  - type: web
+    name: studymaster-ai-backend
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    # Render injects $PORT; binding to it is required or the deploy is marked failed.
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1 --timeout-keep-alive 75
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.14
+      # Secrets are set from the local .env via the deploy script — never committed.
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: ENV
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_LIVE_MODEL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: JWT_ALGORITHM
+        sync: false
+      - key: JWT_EXPIRE_DAYS
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: LLM_DEFAULT_MODEL
+        sync: false
+      - key: LLM_SMART_MODEL
+        sync: false
+      - key: MONGODB_DB
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: SEARCH_API_KEY
+        sync: false
+      - key: SEARCH_PROVIDER
+        sync: false
+      - key: SPITCH_API_KEY
+        sync: false
